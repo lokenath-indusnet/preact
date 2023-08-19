@@ -82,8 +82,13 @@ export function setProperty(dom, name, value, oldValue, isSvg) {
 		}
 	}
 	// Benchmark for comparison: https://esbench.com/bench/574c954bdb965b9a00965ac6
-	else if (name[0] === 'o' && name[1] === 'n') {
-		useCapture = name !== (name = name.replace(/(PointerCapture)$|Capture$/, '$1'));
+	else if (
+		name[0] === 'o' &&
+		name[1] === 'n' &&
+		(typeof oldValue == 'function' || typeof value == 'function')
+	) {
+		useCapture =
+			name !== (name = name.replace(/(PointerCapture)$|Capture$/, '$1'));
 
 		// Infer correct casing for DOM built-in events:
 		if (name.toLowerCase() in dom) name = name.toLowerCase().slice(2);
