@@ -308,7 +308,12 @@ function placeChild(parentDom, newDom, oldDom) {
 		parentDom.insertBefore(newDom, oldDom);
 	}
 
-	return newDom.nextSibling;
+	let nextDom = newDom;
+	do {
+		nextDom = nextDom.nextSibling;
+	} while (nextDom !== null && nextDom.nodeType === 8);
+
+	return nextDom;
 }
 
 /**
